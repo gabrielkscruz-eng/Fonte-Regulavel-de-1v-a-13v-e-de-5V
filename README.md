@@ -345,6 +345,7 @@ O desenvolvimento permitiu compreender na prática as etapas necessárias para t
 # Autores
 
 **Caique Caruso Toscani da Costa**
+
 **Gabriel Kevin Souza Cruz**
 
 **Curso de Engenharia da Computação**
