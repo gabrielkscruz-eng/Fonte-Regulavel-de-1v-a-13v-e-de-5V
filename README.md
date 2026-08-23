@@ -1,43 +1,48 @@
-# Fontes de Alimentação de Bancada
+# Fonte de Alimentação de Bancada
 
-Repositório dedicado ao desenvolvimento de **fontes de alimentação de bancada**, realizadas como projetos acadêmicos durante o curso de **Engenharia da Computação da Universidade Santa Cecília (UNISANTA)**.
+Projeto de desenvolvimento de **fontes de alimentação para bancada**, realizado no curso de **Engenharia da Computação da Universidade Santa Cecília (UNISANTA)**.
 
 O repositório reúne duas etapas do desenvolvimento:
 
-* **Fonte de alimentação de 5 V**, desenvolvida inicialmente para estudo e aplicação dos conceitos básicos de uma fonte regulada.
-* **Fonte de alimentação regulável bivolt**, desenvolvida posteriormente como uma evolução do projeto, incorporando seleção de tensão de entrada, saída fixa de 5 V, saída variável, sistema de ventilação, PCB própria e encapsulamento em MDF.
+* **Fonte de alimentação fixa de 5 V**
+* **Fonte de alimentação regulável bivolt**
 
-Os projetos envolveram desde o desenvolvimento dos circuitos eletrônicos até a fabricação das placas e construção física dos equipamentos.
+O projeto envolveu o desenvolvimento dos circuitos eletrônicos, criação das placas de circuito impresso, prototipagem, testes e desenvolvimento do encapsulamento da fonte regulável.
 
 ---
 
-# 1. Fonte de Alimentação 5 V
+## Sobre o projeto
 
-A primeira etapa do projeto consistiu no desenvolvimento de uma fonte de alimentação com **saída regulada de 5 V**.
+Fontes de alimentação são utilizadas para fornecer tensão adequada e estável para circuitos eletrônicos. Em aplicações de bancada, uma fonte regulável permite trabalhar com diferentes níveis de tensão durante testes e desenvolvimento de circuitos.
 
-Esse projeto teve como objetivo aplicar os conceitos fundamentais necessários para transformar uma tensão de entrada em uma tensão contínua regulada adequada para alimentar circuitos eletrônicos.
+Neste projeto foram desenvolvidas duas fontes em etapas. A primeira foi uma **fonte fixa de 5 V**, utilizada como uma etapa inicial de desenvolvimento. Posteriormente, foi desenvolvida uma **fonte regulável bivolt**, incorporando uma saída fixa de 5 V e uma saída variável.
 
-## Características
+O desenvolvimento permitiu aplicar conhecimentos relacionados a **retificação, filtragem, regulagem de tensão, dissipação térmica, proteção de componentes, desenvolvimento de PCB e fabricação do encapsulamento**.
+
+---
+
+# Fonte de 5 V
+
+A primeira etapa do projeto consistiu no desenvolvimento de uma fonte com **saída fixa de 5 V**.
+
+O circuito utiliza o **LM7805** como regulador de tensão e foi desenvolvido utilizando o KiCad.
+
+### Principais características
 
 * Saída regulada de **5 V DC**
-* Regulador linear **LM7805**
+* Regulador **LM7805**
 * Circuito de retificação
 * Filtragem da tensão
 * Capacitores para estabilização
-* Circuito de proteção
-* Desenvolvimento da placa de circuito impresso
+* PCB própria
 
-O **LM7805** foi utilizado como elemento responsável pela regulação da tensão de saída.
-
-## Funcionamento
-
-O funcionamento básico da fonte pode ser representado por:
+### Fluxo simplificado
 
 ```text
 Entrada AC
     │
     ▼
-Transformador
+Transformação
     │
     ▼
 Retificação
@@ -49,28 +54,24 @@ Filtragem
 LM7805
     │
     ▼
-Saída regulada de 5 V DC
+Saída 5 V DC
 ```
 
-Essa primeira etapa serviu como base para o desenvolvimento da fonte regulável apresentada posteriormente.
+Os arquivos referentes à fonte fixa estão disponíveis na pasta:
+
+**[`Fonte_5V_Fixa`](./Fonte_5V_Fixa/)**
+
+Nela estão disponíveis os arquivos de projeto do KiCad e os documentos em PDF referentes ao esquemático e à placa.
 
 ---
 
-# 2. Fonte de Alimentação Regulável Bivolt
+# Fonte Regulável Bivolt
 
-A segunda etapa consistiu no desenvolvimento de uma **fonte de alimentação regulável e bivolt**, projetada para aplicações de bancada.
+A segunda etapa consistiu no desenvolvimento de uma **fonte de alimentação regulável e bivolt**.
 
-O objetivo inicial do projeto era desenvolver uma fonte com:
+O projeto foi desenvolvido com o objetivo de possuir uma entrada selecionável entre **110 V e 220 V**, uma saída fixa de 5 V e uma saída variável.
 
-* Entrada selecionável entre **110 V e 220 V**;
-* Saída fixa de **5 V**;
-* Saída variável;
-* Corrente mínima de **1 A**;
-* Sistema de ventilação;
-* PCB própria;
-* Encapsulamento físico.
-
-O objetivo acadêmico incluía o desenvolvimento do circuito, layout da placa, encapsulamento, ventilação e validação prática do funcionamento.
+O projeto também incluiu o desenvolvimento da PCB, sistema de ventilação e encapsulamento físico.
 
 ## Especificações finais
 
@@ -89,131 +90,130 @@ O objetivo acadêmico incluía o desenvolvimento do circuito, layout da placa, e
 | Dimensão do gabinete        | 15 × 11 × 15 cm    |
 | Material do gabinete        | MDF                |
 
+A relação de componentes do projeto inclui, entre outros, ponte retificadora KBU808, reguladores LM7805, LM7812 e LM317, diodos 1N4004, capacitores de 4700 µF, capacitores de desacoplamento, resistor de 220 Ω e potenciômetro de 10 kΩ.
+
 ---
 
-# 3. Circuito eletrônico
+# Funcionamento
 
-O circuito da fonte é composto por diferentes etapas responsáveis pela transformação e regulagem da energia.
-
-De forma simplificada:
+O funcionamento da fonte regulável pode ser dividido em algumas etapas principais:
 
 ```text
-                    ┌──────────────► LM7805 ───► 5 V DC
-                    │
-Rede AC             │
-  │                 │
-  ▼                 │
-Seletor             │
-110/220 V           │
-  │                 │
-  ▼                 │
-Transformador       │
-12 V / 3 A          │
-  │                 │
-  ▼                 │
-KBU808              │
-Ponte retificadora  │
-  │                 │
-  ▼                 │
-4700 µF             │
-Filtragem           │
-  │                 │
-  ├─────────────────┼──────► LM7812 ───► 12 V
-  │                 │
-  │                 └──────► LM317 ────► Saída variável
+                 ┌──────────────► LM7805 ───► 5 V DC
+                 │
+Rede AC          │
+  │              │
+  ▼              │
+Seletor          │
+110/220 V        │
+  │              │
+  ▼              │
+Transformador    │
+12 V / 3 A       │
+  │              │
+  ▼              │
+KBU808            │
+Retificação       │
+  │              │
+  ▼              │
+Filtragem         │
+4700 µF           │
+  │              │
+  ├───────────────┼──────► LM7812 ───► 12 V
+  │              │
+  │              └──────► LM317 ────► Saída variável
   │                                      │
-  │                                      ▼
-  │                                  11 V ~ 13 V
-  │
-  ▼
-Tensão contínua filtrada
+  ▼                                      ▼
+Tensão DC filtrada                    11 V ~ 13 V
 ```
 
-A fonte utiliza uma ponte retificadora **KBU808**, capacitores eletrolíticos de **4700 µF** para filtragem, reguladores LM7805, LM7812 e LM317, além de componentes de desacoplamento e proteção.
+O transformador reduz a tensão da rede, a ponte KBU808 realiza a retificação e os capacitores fazem a filtragem da tensão. Após essa etapa, os reguladores são responsáveis por gerar as saídas previstas no projeto.
 
 ---
 
-# 4. Componentes
+# Componentes principais
 
-Os principais componentes utilizados no projeto são:
+## Fonte regulável
 
-* 1 × Transformador bivolt 12 V / 3 A
-* 1 × Ponte retificadora KBU808
-* 1 × LM7805
-* 1 × LM7812
-* 1 × LM317
-* 3 × Diodos 1N4004
-* 2 × Capacitores eletrolíticos de 4700 µF
-* 2 × Capacitores de 0,33 µF
-* 3 × Capacitores de 0,1 µF
-* 1 × Resistor de 220 Ω
-* 1 × Potenciômetro de 10 kΩ
-* 6 × Conectores borne
-* 1 × Seletor 110/220 V de 6 pinos
-* 1 × Chave alavanca
-* 1 × Fusível
-* 1 × Conector para cabo de alimentação
+* Transformador bivolt **12 V / 3 A**
+* Ponte retificadora **KBU808**
+* **LM7805**
+* **LM7812**
+* **LM317**
+* 3 × diodos **1N4004**
+* 2 × capacitores eletrolíticos **4700 µF**
+* 2 × capacitores **0,33 µF**
+* 3 × capacitores **0,1 µF**
+* Resistor **220 Ω**
+* Potenciômetro **10 kΩ**
+* 6 × conectores borne
+* Seletor **110/220 V**
+* Chave alavanca
+* Fusível
+* Conector para cabo de alimentação
 
 ---
 
-# 5. Desenvolvimento da PCB
+# Desenvolvimento da PCB
 
 A esquemática e o layout da placa foram desenvolvidos utilizando o **KiCad 7.0**.
 
-A PCB possui dimensões de:
+A PCB possui dimensões de aproximadamente:
 
 **10 × 7,5 cm**
 
-A fabricação da placa foi realizada através de **fresagem em placa de fenolite**, utilizando as instalações do **INOVFabLab da Universidade Santa Cecília**.
+A fabricação da placa foi realizada por meio de **fresagem em placa de fenolite** nas instalações do **INOVFabLab da Universidade Santa Cecília**.
 
-## Estrutura dos arquivos
+Os arquivos editáveis do KiCad estão disponíveis diretamente neste repositório, permitindo visualizar e modificar o projeto eletrônico.
 
-Os arquivos relacionados ao desenvolvimento eletrônico podem ser organizados da seguinte maneira:
+### Arquivos disponíveis
 
 ```text
-KiCad/
-├── Esquematico/
-├── PCB/
-└── Gerbers/
+Fonte_regulavel/
+├── fonte_regulavel.kicad_pro
+├── fonte_regulavel.kicad_sch
+├── fonte_regulavel.kicad_pcb
+├── Esquemática Fonte regulavel.pdf
+└── Placa da Fonte Regulavel.pdf
 ```
 
 ---
 
-# 6. Desenvolvimento do encapsulamento
+# Desenvolvimento do encapsulamento
 
-O encapsulamento da fonte foi desenvolvido utilizando o **Autodesk Fusion 360**.
+O encapsulamento da fonte regulável foi desenvolvido utilizando o **Autodesk Fusion 360**.
 
-O projeto foi pensado para acomodar a PCB, componentes, conexões e sistema de ventilação em uma estrutura compacta.
+A estrutura foi projetada para acomodar a placa eletrônica e os demais componentes da fonte.
 
-A fabricação foi realizada utilizando **MDF e corte a laser**.
+A fabricação foi realizada em **MDF utilizando corte a laser**.
 
 ### Dimensões
 
-```text
-15 × 11 × 15 cm
-```
+**15 × 11 × 15 cm**
 
-Foi utilizada uma placa de MDF de **1,3 × 0,9 m** para a fabricação do gabinete.
+Foi utilizada uma placa de MDF de 1,3 × 0,9 m para a fabricação do gabinete.
 
----
+O arquivo do encapsulamento está disponível na pasta:
 
-# 7. Evolução do projeto
-
-O desenvolvimento da fonte regulável ocorreu a partir da experiência adquirida durante a primeira etapa do projeto.
-
-Inicialmente, foi planejada a utilização de **duas placas separadas**. A placa da entrega parcial possuía as saídas fixas de **5 V e 12 V**.
-
-A saída de 5 V seria utilizada para alimentação de uma carga, enquanto a saída de 12 V seria utilizada para alimentar a ventoinha responsável pelo resfriamento do regulador de 5 V.
-
-Durante a prototipagem da primeira placa foram identificados problemas no circuito. Como consequência, o projeto foi reorganizado e os componentes passaram a ser integrados em **uma única placa**.
-
-Também houve uma alteração no circuito responsável pela saída variável. Inicialmente havia sido planejado outro circuito de regulador linear, porém ele foi substituído pelo **LM317**, principalmente pela praticidade de implementação.
+**[`Gabinete`](./Gabinete/)**
 
 ---
 
-# 8. Resultado final
+# Evolução do projeto
 
-Após a montagem e os testes do protótipo, a fonte apresentou:
+O desenvolvimento da fonte regulável ocorreu a partir da experiência obtida durante a primeira etapa do projeto.
+
+Inicialmente, foi planejada a utilização de duas placas. A placa da entrega parcial possuía saídas fixas de **5 V e 12 V**, sendo a saída de 5 V destinada à carga e a saída de 12 V destinada à ventoinha utilizada para auxiliar no resfriamento do regulador.
+
+Durante a prototipagem foram identificados problemas na placa da entrega parcial. Como consequência, foi decidido integrar os componentes em uma única placa.
+
+Também houve uma alteração no circuito da saída variável. O circuito inicialmente planejado foi substituído pelo **LM317**, devido à praticidade de implementação.
+
+---
+
+# Resultado final
+
+Após a montagem e os testes do protótipo, foram obtidas as seguintes saídas:
 
 ### Saída fixa
 
@@ -223,142 +223,131 @@ Após a montagem e os testes do protótipo, a fonte apresentou:
 
 **11 V a 13 V DC**
 
-A faixa obtida representa o resultado final medido no protótipo desenvolvido.
+A saída variável apresentada neste README corresponde ao **resultado final obtido nos testes do protótipo**.
 
-O projeto inicialmente previa uma saída variável de 0 a 12 V, porém a implementação final utilizando o LM317 apresentou uma faixa diferente da especificação inicial.
-
-O relatório técnico registra uma faixa de 1,10 V a 13 V para uma etapa anterior de avaliação, enquanto o resultado final considerado neste repositório é de **11 V a 13 V**, conforme os testes finais realizados no protótipo.
+O relatório acadêmico registra, em sua seção de resultados, uma faixa de 1,10 V a 13 V para o protótipo documentado naquele momento. O valor de **11 V a 13 V** apresentado aqui corresponde ao resultado final considerado para este repositório.
 
 ---
 
-# 9. Comparação entre as etapas
+# Comparação das duas fontes
 
-| Característica   |        Fonte 5 V | Fonte Regulável Bivolt |
-| ---------------- | ---------------: | ---------------------: |
-| Saída fixa       |              5 V |                    5 V |
-| Saída variável   |              Não |                11–13 V |
-| Entrada bivolt   | Não especificada |                    Sim |
-| LM7805           |              Sim |                    Sim |
-| LM317            |              Não |                    Sim |
-| LM7812           |              Não |                    Sim |
-| PCB própria      |              Sim |                    Sim |
-| Encapsulamento   |                - |                    MDF |
-| Ventilação       |                - |                    Sim |
-| Projeto mecânico |                - |             Fusion 360 |
+| Característica |        Fonte 5 V | Fonte Regulável |
+| -------------- | ---------------: | --------------: |
+| Saída fixa     |              5 V |             5 V |
+| Saída variável |              Não |         11–13 V |
+| Entrada bivolt | Não especificada |       110/220 V |
+| LM7805         |              Sim |             Sim |
+| LM7812         |              Não |             Sim |
+| LM317          |              Não |             Sim |
+| PCB            |              Sim |             Sim |
+| Encapsulamento |              Não |             MDF |
+| Ventilação     |              Não |             Sim |
 
 ---
 
-# 10. Organização do repositório
+# Organização do repositório
 
 ```text
-Fontes-de-Alimentacao/
+Fonte-Regulavel-de-1v-a-13v-e-de-5V-main/
 │
 ├── README.md
 │
-├── Fonte-5V/
-│   ├── KiCad/
-│   │   ├── Esquematico/
-│   │   ├── PCB/
-│   │   └── Gerbers/
-│   │
-│   ├── Imagens/
-│   └── Documentacao/
+├── Documentação/
+│   └── RELATÓRIO FONTE.pdf
 │
-├── Fonte-Regulavel-Bivolt/
-│   ├── KiCad/
-│   │   ├── Esquematico/
-│   │   ├── PCB/
-│   │   └── Gerbers/
-│   │
-│   ├── Fusion360/
-│   ├── Imagens/
-│   └── Documentacao/
+├── Fonte_5V_Fixa/
+│   ├── Esquemática da placa de 5V.pdf
+│   ├── Fonte_5v.kicad_pcb
+│   ├── Fonte_5v.kicad_pro
+│   ├── Fonte_5v.kicad_sch
+│   └── Placa de 5V.pdf
 │
-└── Relatorio/
-    └── RELATORIO_FONTE.pdf
+├── Fonte_regulavel/
+│   ├── Esquemática Fonte regulavel.pdf
+│   ├── Placa da Fonte Regulavel.pdf
+│   ├── fonte_regulavel.kicad_pcb
+│   ├── fonte_regulavel.kicad_pro
+│   └── fonte_regulavel.kicad_sch
+│
+└── Gabinete/
+    └── Encapsulamento da Fonte regulavel.rld
 ```
 
 ---
 
-# 11. Ferramentas utilizadas
+# Documentação
 
-## Eletrônica
+O relatório técnico completo do projeto está disponível em formato PDF na pasta **Documentação**.
+
+📄 **[Relatório Técnico](./Documentação/RELATÓRIO%20FONTE.pdf)**
+
+O relatório apresenta:
+
+* Introdução e objetivos;
+* Materiais e métodos;
+* Desenvolvimento do circuito;
+* Desenvolvimento das placas;
+* Desenvolvimento do encapsulamento;
+* Resultados;
+* Conclusão;
+* Referências;
+* Imagens e registros do projeto.
+
+As **imagens e registros visuais do desenvolvimento e da fonte final estão disponíveis no relatório técnico em PDF**.
+
+Além do relatório, os PDFs de esquemática e layout das placas estão disponíveis nas respectivas pastas dos projetos.
+
+---
+
+# Ferramentas utilizadas
+
+### Projeto eletrônico
 
 * **KiCad 7.0**
-* Projeto de esquemática
-* Projeto de PCB
-* Geração de arquivos de fabricação
+* Desenvolvimento de esquemática
+* Desenvolvimento de PCB
+* Geração dos arquivos de fabricação
 
-## Projeto mecânico
+### Projeto mecânico
 
 * **Autodesk Fusion 360**
 * Modelagem do encapsulamento
-* Preparação para fabricação
 
-## Fabricação
+### Fabricação
 
 * Fresagem de PCB em placa de fenolite
 * Corte a laser de MDF
 
 ---
 
-# 12. Objetivos acadêmicos
+# Objetivos acadêmicos
 
-O desenvolvimento das fontes permitiu aplicar conceitos de eletrônica desde o projeto do circuito até a fabricação e validação do equipamento.
+O projeto teve como objetivo aplicar, de forma prática, conhecimentos adquiridos na disciplina de **Tópicos de Eletrônica**, abrangendo diferentes etapas do desenvolvimento de hardware.
 
 Entre os principais conhecimentos aplicados estão:
 
 * Retificação de tensão;
 * Filtragem;
 * Regulagem de tensão;
-* Reguladores lineares;
+* Utilização de reguladores lineares;
 * Dissipação térmica;
 * Proteção de componentes;
 * Desenvolvimento de PCB;
-* Montagem de circuitos;
+* Montagem eletrônica;
 * Projeto mecânico;
 * Fabricação digital;
 * Testes e validação de hardware.
 
-O projeto também possibilitou compreender, na prática, as etapas necessárias para transformar uma ideia de circuito em um equipamento físico funcional.
+O desenvolvimento permitiu compreender na prática as etapas necessárias para transformar um circuito eletrônico em um equipamento físico funcional.
 
 ---
 
-# 13. Imagens
-
-## Fonte de 5 V
-
-Adicione aqui imagens da primeira fonte:
-
-```text
-Fonte-5V/Imagens/
-```
-
-## PCB da fonte regulável
-
-Adicione aqui a imagem da PCB desenvolvida no KiCad.
-
-## Esquemático
-
-Adicione aqui a imagem do esquemático completo.
-
-## Encapsulamento
-
-Adicione aqui imagens do modelo desenvolvido no Fusion 360.
-
-## Fonte final
-
-Adicione aqui imagens da fonte montada e finalizada.
-
----
-
-# 14. Autores
+# Autores
 
 **Caique Caruso Toscani da Costa**
-
 **Gabriel Kevin Souza Cruz**
 
-**Engenharia da Computação**
+**Curso de Engenharia da Computação**
 **Universidade Santa Cecília — UNISANTA**
 
 Santos, São Paulo — Brasil
@@ -366,27 +355,10 @@ Santos, São Paulo — Brasil
 
 ---
 
-# 15. Segurança
+# Segurança
 
-> **ATENÇÃO:** este projeto trabalha diretamente com tensão de rede elétrica de **110/220 V AC**.
+> **ATENÇÃO:** este projeto trabalha com tensão de rede elétrica de **110/220 V AC**.
 
-A montagem, manutenção ou reprodução do circuito deve ser realizada utilizando procedimentos adequados de segurança elétrica e por pessoas capacitadas.
+A montagem, manutenção ou reprodução do circuito deve ser realizada com procedimentos adequados de segurança elétrica e por pessoas capacitadas.
 
 Este projeto foi desenvolvido para fins **acadêmicos e educacionais**.
-
-# 16. Documentação
-
-O relatório técnico completo do projeto, desenvolvido para a disciplina de **Tópicos de Eletrônica** da Universidade Santa Cecília, está disponível neste repositório.
-
-📄 **[Relatório Técnico](./Relatorio/RELATORIO_FONTE.pdf)**
-
-O documento apresenta o desenvolvimento do projeto, incluindo:
-
-* Introdução e objetivos;
-* Materiais e métodos;
-* Desenvolvimento do circuito;
-* Projeto da PCB;
-* Desenvolvimento do encapsulamento;
-* Resultados obtidos;
-* Conclusão;
-* Referências utilizadas.
